@@ -1,7 +1,6 @@
 import { NotFoundException, Injectable } from '@nestjs/common';
 import { User } from './users.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from './dtos/CreateUser.dto';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -12,15 +11,14 @@ export class UsersService {
   ) {}
 
   async create(email: string, password: string) {
-    const tmp = await this.find(email);
-    if (tmp) {
-      throw new Error('Already User!');
-    }
     const user: User = this.usersRepository.create({ email, password });
     return this.usersRepository.save(user);
   }
 
   findOne(id: number) {
+    if (!id) {
+      return null;
+    }
     return this.usersRepository.findOneBy({ id });
   }
 
