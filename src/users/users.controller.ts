@@ -19,7 +19,7 @@ import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { User } from './users.entity';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Controller('auth')
 @Serialize(UserDto)
@@ -29,13 +29,6 @@ export class UsersController {
     private authService: AuthService,
   ) {}
 
-  // @Get('/whoami')
-  // whoAmI(@Session() session: any) {
-  //   if (!session.userId) {
-  //     throw new NotFoundException('No have session.id');
-  //   }
-  //   return this.usersService.findOne(session.userId);
-  // }
   @Get('/whoami')
   @UseGuards(AuthGuard)
   whoAmI(@CurrentUser() user: User) {
