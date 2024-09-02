@@ -10,7 +10,7 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  async create(email: string, password: string) {
+  create(email: string, password: string) {
     const user: User = this.usersRepository.create({ email, password });
     return this.usersRepository.save(user);
   }
