@@ -8,6 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateReportDto } from './dtos/createReport.dto';
 import { User } from '../users/users.entity';
+import { GetEstimateDto } from './dtos/getEstimate.dto';
 
 @Injectable()
 export class ReportsService {
@@ -31,5 +32,27 @@ export class ReportsService {
     }
     report.approved = approved;
     return this.reportsRepository.save(report);
+  }
+  async createEstimate({
+    make,
+    model,
+    lng,
+    lat,
+    year,
+    mileage,
+  }: GetEstimateDto) {
+    return await this.reportsRepository
+      .createQueryBuilder()
+      .select('AVG(price)', 'price')
+      .where('make = :make', { make })
+      .andWhere('model = :model', { model })
+      .andWhere('ABS(lng - :lng) <= 5', { lng }) // 위도 차이 절대값 5 이하
+      .andWhere('ABS(lat - :lat) <= 5', { lat }) // 경도 차이 절대값 5 이하
+      .andWhere('ABS(year - :year) <= 3', { year }) // 년도 차이 절대값 3 이하
+      .andWhere('approved IS TRUE')
+      .orderBy('ABS(mileage - :mileage)', 'DESC')
+      .setParameters({ mileage })
+      .limit(3)
+      .getRawOne();
   }
 }
