@@ -1,0 +1,4 @@
+# .dockerignore
+node_module
+dist
+orm_command
