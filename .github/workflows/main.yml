@@ -30,6 +30,7 @@ jobs:
           PASSWORD=${{ secrets.PASSWORD }}
           COOKIE_KEY=${{ secrets.COOKIE_KEY }} 
           EOF
+          echo "$USERNAME $PASSWORD $COOKIE_KEY"
 
       # 3. Docker와 docker-compose 설치
       - name: Set up Docker Buildx
@@ -66,5 +67,4 @@ jobs:
     steps:
       - name: Deploy to Server
         run: |
-          docker pull ${{ secrets.DOCKERUSER_NAME }}/nest-mycv:latest
-          docker-compose up -d
+          docker-compose up -d --build
