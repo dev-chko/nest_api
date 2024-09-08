@@ -13,7 +13,7 @@ jobs:
       # 0. env 확인
       - name: env Check
         env:
-          USERNAME: ${{ secerts.USERNAME }}
+          USERNAME: ${{ secrets.USERNAME }}
         run: |
           echo "${{ env.USERNAME }} ${{ env.PASSWORD }} ${{ env.DOCKER_USERNAME}}"
           echo "${{ secrets.USERNAME }} ${{ secrets.PASSWORD }} ${{ secrets.DOCKER_USERNAME}} ${{ secrets.DOCKER_USERNAME }}"
