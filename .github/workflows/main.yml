@@ -20,9 +20,13 @@ jobs:
         uses: actions/checkout@v2
 
       # 2. .env파일 생성
-      # - name: Generate .env file
-      #   run: |
-      #     echo ${{}}
+      - name: Generate .env file
+        run: |
+          cat <<EOF > ./.env.prod
+          USERNAME=${{ secrets.USERNAME }}
+          PASSWORD=${{ secrets.PASSWORD }}
+          COOKIE_KEY=${{ secrets.COOKIE_KEY }}
+          EOF
 
       # 3. Docker와 docker-compose 설치
       - name: Set up Docker Buildx
