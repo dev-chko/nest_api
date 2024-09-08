@@ -21,11 +21,11 @@ jobs:
       # 2. .env파일 생성
       - name: Generate .env file
         run: |
-        cat <<EOF > ./.env
-        USERNAME=${{ secrets.USERNAME }}
-        PASSWORD=${{ secrets.PASSWORD }}
-        COOKIE_KEY=${{ secerts.COOKIE_KEY }} 
-        EOF
+          cat <<EOF > ./.env
+          USERNAME=${{ secrets.USERNAME }}
+          PASSWORD=${{ secrets.PASSWORD }}
+          COOKIE_KEY=${{ secrets.COOKIE_KEY }} 
+          EOF
 
 
       # 3. Docker와 docker-compose 설치
