@@ -20,7 +20,7 @@ jobs:
           cat <<EOF > ./.env
           USERNAME=${{ secrets.USERNAME }}
           PASSWORD=${{ secrets.PASSWORD }}
-          COOKIE_KEY=${{ secerts.COOKIE_KEY }} 
+          COOKIE_KEY=${{ secrets.COOKIE_KEY }} 
           EOF
 
 
