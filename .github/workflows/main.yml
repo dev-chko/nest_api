@@ -22,7 +22,11 @@ jobs:
           PASSWORD=${{ secrets.PASSWORD }}
           COOKIE_KEY=${{ secrets.COOKIE_KEY }} 
           EOF
-          echo "$(cat .env)"
+          echo "$(cat .env.prod)"
+      - environmet:
+          - USERNAME=${{ secrets.USERNAME }}
+          - PASSWORD=${{ secrets.PASSWORD }}
+          - COOKIE_KEY=${{ secrets.COOKIE_KEY }}
 
       # 3. Docker와 docker-compose 설치
       - name: Set up Docker Buildx

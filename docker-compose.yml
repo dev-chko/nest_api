@@ -9,11 +9,10 @@ services:
     ports:
       - '3000:3000'
     env_file:
-      - .env.prod
+      - .env.pord
     environment:
       - DB_HOST=db
       - DATABASE_URL=DATABASE_URL=postgres://user:password@db:5432/mydatabase
-
     depends_on:
       - db
 
