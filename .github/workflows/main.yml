@@ -25,7 +25,7 @@ jobs:
       # 2. .env파일 생성
       - name: Generate .env file
         run: |
-          cat <<EOF > ./.env
+          cat <<EOF > ./.env.prod
           USERNAME=${{ secrets.USERNAME }}
           PASSWORD=${{ secrets.PASSWORD }}
           COOKIE_KEY=${{ secrets.COOKIE_KEY }} 
@@ -67,4 +67,5 @@ jobs:
     steps:
       - name: Deploy to Server
         run: |
+          docker-compose down
           docker-compose up -d --build
