@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 0. env 확인
+      - name: env Check
+        run: |
+        echo "${{ env.USERNAME }} ${{ env.PASSWORD }} ${{ env.DOCKER_USERNAME}}"
       # 1. 소스 코드를 체크아웃
       - name: Check out the repository
         uses: actions/checkout@v2
