@@ -39,7 +39,7 @@ jobs:
       # 4. docker image tag & docker hub push
       - name: Tag and push Docker image to Docker hub
         run: |
-          docker tag mycv nest-mycv:latest
+          docker tag mycv ${{ secrets.DOCKER_USERNAME }}/nest-mycv:latest
           docker push ${{ secrets.DOCKERUSER_NAME }}/nest-mycv:latest
   deploy:
     runs-on: self-hosted
