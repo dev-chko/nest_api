@@ -9,6 +9,11 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
+    env:
+      USERNAME: ${{ secrets.USERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      COOKIE_KEY: ${{ secrets.COOKIE_KEY }}
+
     steps:
       # 1. 소스 코드를 체크아웃
       - name: Check out the repository
@@ -17,16 +22,7 @@ jobs:
       # 2. .env파일 생성
       - name: Generate .env file
         run: |
-          cat <<EOF > ./.env.prod
-          USERNAME=${{ secrets.USERNAME }}
-          PASSWORD=${{ secrets.PASSWORD }}
-          COOKIE_KEY=${{ secrets.COOKIE_KEY }} 
-          EOF
-          echo "$(cat .env.prod)"
-      - environmet:
-          - USERNAME=${{ secrets.USERNAME }}
-          - PASSWORD=${{ secrets.PASSWORD }}
-          - COOKIE_KEY=${{ secrets.COOKIE_KEY }}
+          echo ${{}}
 
       # 3. Docker와 docker-compose 설치
       - name: Set up Docker Buildx
@@ -48,7 +44,9 @@ jobs:
       # 4. docker-compose를 사용하여 컨테이너 빌드 및 실행
       - name: Build and Run docker-compose
         run: |
-          docker-compose up -d --build
+          docker-compose up -d --build --build-arg USERNAME="${{ env.USERNAME }}" \
+          --build-arg PASSWORD="${{ env.PASSWORD }}" \
+          --build-arg COOKIE_KEY="${{ env.COOKIE_KEY }}"
 
       # 5. docker image tag & docker hub push
       - name: Tag and push Docker image to Docker hub
