@@ -1,4 +1,4 @@
-name: Docker Compose CI
+name: Docker Compose CI / CD
 
 on:
   pull_request:
@@ -36,13 +36,18 @@ jobs:
         run: |
           docker-compose up -d --build
 
-      # # 4. 서비스 테스트
-      # - name: Run tests
-      #   run: |
-      #     # 여기에 테스트 스크립트를 작성하거나 docker-compose로 서비스가 정상 동작하는지 확인
-      #     docker-compose exec web ./run-tests.sh
-
-      # 5. 컨테이너 종료
-      - name: Shutdown docker-compose
+      # 4. docker image tag & docker hub push
+      - name: Tag and push Docker image to Docker hub
         run: |
-          docker-compose down
+          docker tag mycv:latest ${{ secrets.DOCKERUSER_NAME }}/nest-mycv:latest
+          docker push ${{ secrets.DOCKERUSER_NAME }}/nest-mycv:latest
+  deploy:
+    runs-on: self-hosted
+    needs: build-and-push
+    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+
+    steps:
+      - name: Deploy to Server
+        run: |
+          docker pull ${{ secrets.DOCKERUSER_NAME }}/nest-mycv:latest
+          docker-compose up -d
