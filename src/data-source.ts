@@ -5,6 +5,9 @@ const baseConfig = {
   synchronize: false,
   migrations: [path.join(__dirname, `../migrations/*.{ts,js}`)],
 };
+
+console.log('process.env :>> ', process.env);
+
 let dbConfig: any;
 switch (process.env.NODE_ENV) {
   case 'development':
