@@ -3,7 +3,7 @@ name: Docker Compose CI
 on:
   pull_request:
     branches:
-      - step-cicd
+      - main
 
 jobs:
   build:
