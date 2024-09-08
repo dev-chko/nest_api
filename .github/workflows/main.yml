@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       # 1. 소스 코드를 체크아웃
@@ -39,7 +39,7 @@ jobs:
       # 4. docker image tag & docker hub push
       - name: Tag and push Docker image to Docker hub
         run: |
-          docker tag mycv:latest ${{ secrets.DOCKERUSER_NAME }}/nest-mycv:latest
+          docker tag mycv ${{ secrets.DOCKERUSER_NAME }}/nest-mycv:latest
           docker push ${{ secrets.DOCKERUSER_NAME }}/nest-mycv:latest
   deploy:
     runs-on: self-hosted
