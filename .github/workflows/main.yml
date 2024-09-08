@@ -13,11 +13,11 @@ jobs:
       # 0. env 확인
       - name: env Check
         run: |
-        echo "${{ env.USERNAME }} ${{ env.PASSWORD }} ${{ env.DOCKER_USERNAME}}"
+          echo "${{ env.USERNAME }} ${{ env.PASSWORD }} ${{ env.DOCKER_USERNAME}}"
       # 1. 소스 코드를 체크아웃
       - name: Check out the repository
         uses: actions/checkout@v2
-      
+
       # 2. .env파일 생성
       - name: Generate .env file
         run: |
@@ -26,7 +26,6 @@ jobs:
           PASSWORD=${{ secrets.PASSWORD }}
           COOKIE_KEY=${{ secrets.COOKIE_KEY }} 
           EOF
-
 
       # 3. Docker와 docker-compose 설치
       - name: Set up Docker Buildx
