@@ -12,9 +12,12 @@ jobs:
     steps:
       # 0. env 확인
       - name: env Check
+        env:
+          USERNAME: ${{ secerts.USERNAME }}
         run: |
           echo "${{ env.USERNAME }} ${{ env.PASSWORD }} ${{ env.DOCKER_USERNAME}}"
           echo "${{ secrets.USERNAME }} ${{ secrets.PASSWORD }} ${{ secrets.DOCKER_USERNAME}} ${{ secrets.DOCKER_USERNAME }}"
+          echo " USERNAME: $USERNAME"
       # 1. 소스 코드를 체크아웃
       - name: Check out the repository
         uses: actions/checkout@v2
