@@ -49,7 +49,7 @@ jobs:
       # 5. docker image tag & docker hub push
       - name: Tag and push Docker image to Docker hub
         run: |
-          cat export ${cat .env.production }
+          export ${cat .env.production }
           docker tag nest-mycv:latest ${{ secrets.DOCKERUSER_NAME }}/nest-mycv:latest
           docker push ${{ secrets.DOCKERUSER_NAME }}/nest-mycv:latest
   deploy:
