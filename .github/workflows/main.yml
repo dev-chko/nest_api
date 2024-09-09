@@ -18,8 +18,8 @@ jobs:
       - name: Generate .env file
         run: |
           cat <<EOF > ./.env.prod
-          DB_USERNAME=${{ secrets.USERNAME }}
-          DB_PASSWORD=${{ secrets.PASSWORD }}
+          DB_USERNAME=${{ secrets.DB_USERNAME }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
           COOKIE_KEY=${{ secrets.COOKIE_KEY }}
           DB_PORT=${{ secrets.DB_PORT }}
           EOF
