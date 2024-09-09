@@ -9,11 +9,6 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
-    env:
-      USERNAME: ${{ secrets.USERNAME }}
-      PASSWORD: ${{ secrets.PASSWORD }}
-      COOKIE_KEY: ${{ secrets.COOKIE_KEY }}
-
     steps:
       # 1. 소스 코드를 체크아웃
       - name: Check out the repository
@@ -23,9 +18,9 @@ jobs:
       - name: Generate .env file
         run: |
           cat <<EOF > ./.env.prod
-          DB_USERNAME=${{ env.USERNAME }}
-          DB_PASSWORD=${{ env.PASSWORD }}
-          COOKIE_KEY=${{ env.COOKIE_KEY }}
+          DB_USERNAME=${{ secrets.USERNAME }}
+          DB_PASSWORD=${{ secrets.PASSWORD }}
+          COOKIE_KEY=${{ secrets.COOKIE_KEY }}
           DB_PORT=${{ secrets.DB_PORT }}
           EOF
 
