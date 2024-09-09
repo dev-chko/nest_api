@@ -44,7 +44,6 @@ jobs:
       # 4. docker-compose를 사용하여 컨테이너 빌드 및 실행
       - name: Build and Run docker-compose
         run: |
-          cat .env.prod
           docker-compose up -d --build
 
       # 5. docker image tag & docker hub push
