@@ -68,4 +68,4 @@ jobs:
           EOF
           docker-compose down
           docker-compose pull
-          docker-compose up -d --env-file .env.production
+          docker-compose up -d --build --env-file .env.production
