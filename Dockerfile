@@ -28,6 +28,10 @@ ENV HOST 0.0.0.0
 
 # ENV
 ENV NODE_ENV=production
+ENV DB_USERNAME=process.env.DB_USERNAME
+ENV DB_PASSWORD=process.env.DB_PASSWORD
+ENV DB_PORT=process.env.DB_PORT
+ENV COOCKIE_KEY=process.env.COOCKIE_KEY
 
 # 3000번 포트를 컨테이너 외부에 노출
 EXPOSE 3000
