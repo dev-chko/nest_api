@@ -60,6 +60,12 @@ jobs:
     steps:
       - name: Deploy to Server
         run: |
+          cat <<EOF > ./.env.production
+          DB_USERNAME=${{ secrets.DB_USERNAME }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          COOKIE_KEY=${{ secrets.COOKIE_KEY }}
+          DB_PORT=${{ secrets.DB_PORT }}
+          EOF
           docker-compose down
           docker-compose pull
           docker-compose up -d --build
