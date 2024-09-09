@@ -44,9 +44,9 @@ jobs:
       # 4. docker-compose를 사용하여 컨테이너 빌드 및 실행
       - name: Build and Run docker-compose
         run: |
-          cat .env.prod
-          docker-compose build --build-arg DB_USERNAME="${{ env.USERNAMEE }}" \
-          --build-arg DB_PASSWORD="${{ env.password }}" \
+          .env
+          docker-compose build --build-arg DB_USERNAME="${{ env.USERNAME }}" \
+          --build-arg DB_PASSWORD="${{ env.PASSWORD }}" \
           --build-arg COOKIE_KEY="${{ env.COOKIE_KEY }}"
 
           docker-compose up -d
