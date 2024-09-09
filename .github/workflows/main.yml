@@ -17,7 +17,7 @@ jobs:
       # 2. .env파일 생성
       - name: Generate .env file
         run: |
-          cat <<EOF > ./.env.prod
+          cat <<EOF > ./.env.production
           DB_USERNAME=${{ secrets.DB_USERNAME }}
           DB_PASSWORD=${{ secrets.DB_PASSWORD }}
           COOKIE_KEY=${{ secrets.COOKIE_KEY }}

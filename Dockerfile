@@ -20,18 +20,18 @@ RUN rm package-lock.json || true
 # npm 사용하여 종속성 설치
 RUN npm install
 
-# 애플리케이션 빌드
-RUN npm run build
-
-# 호스트 주소를 0.0.0.0으로 설정 (모든 네트워크 인터페이스에서 애플리케이션에 접근 가능하게 함)
-ENV HOST 0.0.0.0
-
 # ENV
 ENV NODE_ENV=production
 ENV DB_USERNAME=process.env.DB_USERNAME
 ENV DB_PASSWORD=process.env.DB_PASSWORD
 ENV DB_PORT=process.env.DB_PORT
 ENV COOCKIE_KEY=process.env.COOCKIE_KEY
+
+# 애플리케이션 빌드
+RUN npm run build
+
+# 호스트 주소를 0.0.0.0으로 설정 (모든 네트워크 인터페이스에서 애플리케이션에 접근 가능하게 함)
+ENV HOST 0.0.0.0
 
 # 3000번 포트를 컨테이너 외부에 노출
 EXPOSE 3000
