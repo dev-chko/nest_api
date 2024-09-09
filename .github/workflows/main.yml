@@ -9,6 +9,8 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
+    env:
+
     steps:
       # 1. 소스 코드를 체크아웃
       - name: Check out the repository
@@ -60,4 +62,5 @@ jobs:
       - name: Deploy to Server
         run: |
           docker-compose down
+          docker-compose pull
           docker-compose up -d --build

@@ -20,13 +20,6 @@ RUN rm package-lock.json || true
 # npm 사용하여 종속성 설치
 RUN npm install
 
-# ENV
-ENV NODE_ENV=production
-ENV DB_USERNAME=process.env.DB_USERNAME
-ENV DB_PASSWORD=process.env.DB_PASSWORD
-ENV DB_PORT=process.env.DB_PORT
-ENV COOCKIE_KEY=process.env.COOCKIE_KEY
-
 # 애플리케이션 빌드
 RUN npm run build
 
