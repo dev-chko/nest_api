@@ -9,10 +9,10 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
-    # env:
-    #   USERNAME: ${{ secrets.USERNAME }}
-    #   PASSWORD: ${{ secrets.PASSWORD }}
-    #   COOKIE_KEY: ${{ secrets.COOKIE_KEY }}
+    env:
+      USERNAME: ${{ secrets.USERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      COOKIE_KEY: ${{ secrets.COOKIE_KEY }}
 
     steps:
       # 1. 소스 코드를 체크아웃
@@ -23,9 +23,10 @@ jobs:
       - name: Generate .env file
         run: |
           cat <<EOF > ./.env.prod
-          USERNAME=${{ secrets.USERNAME }}
-          PASSWORD=${{ secrets.PASSWORD }}
+          DB_USERNAME=${{ secrets.DB_USERNAME }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
           COOKIE_KEY=${{ secrets.COOKIE_KEY }}
+          DB_PORT=${{ secrets.DB_PORT}}
           EOF
 
       # 3. Docker와 docker-compose 설치
@@ -48,9 +49,9 @@ jobs:
       # 4. docker-compose를 사용하여 컨테이너 빌드 및 실행
       - name: Build and Run docker-compose
         run: |
-          docker-compose build --build-arg USERNAME="${{ secrets.USERNAME }}" \
-          --build-arg PASSWORD="${{ secrets.PASSWORD }}" \
-          --build-arg COOKIE_KEY="${{ secrets.COOKIE_KEY }}"
+          docker-compose build --build-arg DB_USERNAME="${{ env.USERNAMEE }}" \
+          --build-arg DB_PASSWORD="${{ env.password }}" \
+          --build-arg COOKIE_KEY="${{ env.COOKIE_KEY }}"
 
           docker-compose up -d
 
