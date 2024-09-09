@@ -60,7 +60,7 @@ jobs:
     steps:
       - name: Deploy to Server
         run: |
-          cat <<EOF > ./.env.production
+          cat <<EOF > ./.env
           DB_USERNAME=${{ secrets.DB_USERNAME }}
           DB_PASSWORD=${{ secrets.DB_PASSWORD }}
           COOKIE_KEY=${{ secrets.COOKIE_KEY }}
