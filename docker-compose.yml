@@ -12,7 +12,6 @@ services:
       - ./.env.production
     environment:
       - DB_HOST=db
-      - DATABASE_URL=DATABASE_URL=postgres://user:password@db:5432/mydatabase
     depends_on:
       - db
 
