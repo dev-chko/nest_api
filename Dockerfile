@@ -26,9 +26,6 @@ RUN npm run build
 # 호스트 주소를 0.0.0.0으로 설정 (모든 네트워크 인터페이스에서 애플리케이션에 접근 가능하게 함)
 ENV HOST 0.0.0.0
 
-# ENV
-ENV NODE_ENV=production
-
 # 3000번 포트를 컨테이너 외부에 노출
 EXPOSE 3000
 

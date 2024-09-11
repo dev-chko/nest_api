@@ -7,39 +7,50 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       # 1. 소스 코드를 체크아웃
       - name: Check out the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      # 2. Docker와 docker-compose 설치
+      # 2. .env파일 생성
+      - name: Generate .env file
+        run: |
+          cat <<EOF > ./.env.production
+          DB_USERNAME=${{ secrets.DB_USERNAME }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          COOKIE_KEY=${{ secrets.COOKIE_KEY }}
+          DB_PORT=${{ secrets.DB_PORT }}
+          EOF
+
+      # 3. Docker와 docker-compose 설치
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Log in to DockerHub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
 
       - name: Install Docker Compose
         run: |
           sudo apt-get update && sudo apt-get install docker-compose -y
 
-      # 3. docker-compose를 사용하여 컨테이너 빌드 및 실행
+      # 4. docker-compose를 사용하여 컨테이너 빌드 및 실행
       - name: Build and Run docker-compose
         run: |
+          export $(cat .env.production | xargs)
           docker-compose up -d --build
 
-      # 4. docker image tag & docker hub push
+      # 5. docker image tag & docker hub push
       - name: Tag and push Docker image to Docker hub
         run: |
-          docker tag mycv ${{ secrets.DOCKERUSER_NAME }}/nest-mycv:latest
+          docker tag nest-mycv:latest ${{ secrets.DOCKERUSER_NAME }}/nest-mycv:latest
           docker push ${{ secrets.DOCKERUSER_NAME }}/nest-mycv:latest
   deploy:
     runs-on: self-hosted
@@ -49,5 +60,12 @@ jobs:
     steps:
       - name: Deploy to Server
         run: |
-          docker pull ${{ secrets.DOCKERUSER_NAME }}/nest-mycv:latest
+          cat <<EOF > ./.env
+          DB_USERNAME=${{ secrets.DB_USERNAME }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          COOKIE_KEY=${{ secrets.COOKIE_KEY }}
+          DB_PORT=${{ secrets.DB_PORT }}
+          EOF
+          docker-compose down
+          docker-compose pull
           docker-compose up -d

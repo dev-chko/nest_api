@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: mycv
+    image: nest-mycv
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,7 +10,6 @@ services:
       - '3000:3000'
     environment:
       - DB_HOST=db
-      - DATABASE_URL=DATABASE_URL=postgres://user:password@db:5432/mydatabase
     depends_on:
       - db
 
@@ -23,6 +22,5 @@ services:
       - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      # - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 volumes:
   postgres_data:

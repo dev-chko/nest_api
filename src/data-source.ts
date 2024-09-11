@@ -5,6 +5,9 @@ const baseConfig = {
   synchronize: false,
   migrations: [path.join(__dirname, `../migrations/*.{ts,js}`)],
 };
+
+console.log('process.env :>> ', process.env);
+
 let dbConfig: any;
 switch (process.env.NODE_ENV) {
   case 'development':
@@ -31,9 +34,9 @@ switch (process.env.NODE_ENV) {
       ...baseConfig,
       type: 'postgres',
       host: process.env.DB_HOST,
-      username: process.env.USERNAME,
-      port: process.env.PORT,
-      password: process.env.PASSWORD,
+      username: process.env.DB_USERNAME,
+      port: process.env.DB_PORT,
+      password: process.env.DB_PASSWORD,
       migrationsRun: true,
       entities: [path.join(__dirname, '**/*.entity.{ts,js}')],
     };
